@@ -51,7 +51,7 @@
   git add .
   git status
   git branch -m main
-  git commit -m "party 1.1"
+  git commit -m "party 1.2"
   git push -u origin main
 
 ### VERCEL - storage
