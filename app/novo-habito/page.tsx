@@ -1,9 +1,16 @@
+import { kv } from "@vercel/kv"
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
 function NewHabit() {
 
-  async function newHabit(formData) {
+  async function newHabit(formData: FormData) {
     "use server"
     const habit = formData.get("habit");
-    console.log(habit);
+    await kv.hset("habits", { [habit as string]: {} })
+    // console.log(habit);
+    revalidatePath("/")
+    redirect("/")
   }
 
   return (<main className="container relative flex flex-col 
@@ -30,7 +37,7 @@ function NewHabit() {
         Cadastrar
       </button>
 
-      <button className="bg-[#F85858] font-display text-neutral-900
+      <button className="bg-[#c4c4c4] font-display text-neutral-900
                          font-regular text-2xl p-2 rounded-md ">
         Cancelar
       </button>

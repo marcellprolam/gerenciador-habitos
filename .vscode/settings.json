@@ -72,8 +72,12 @@
     "statusBar.foreground": "#ebe8e8"
   },
   "cSpell.words": [
+    "campoas",
     "dosis",
-    "habitos"
+    "habitos",
+    "hget",
+    "hgetall",
+    "hset"
   ],
 
 }

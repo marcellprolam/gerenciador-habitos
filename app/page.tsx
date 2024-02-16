@@ -1,20 +1,26 @@
 import DayState from '@/components/DayState'
 import Image from 'next/image'
 import Link from 'next/link'
+import { kv } from '@vercel/kv'
 
-export default function Home() {
-  const habits = {
-    'Beber Água': {
-      '2023-18-07': true,
-      '2023-19-07': false,
-      '2023-20-07': false,
-    },
-    'Estudar Programação': {
-      '2023-18-07': false,
-      '2023-19-07': true,
-      '2023-20-07': false,
-    },
-  }
+type Habits = {
+  [habit: string]: Record<string, boolean>
+} | null
+
+export default async function Home() {
+  // const habits = {
+  //   'Beber Água': {
+  //     '2023-18-07': true,
+  //     '2023-19-07': false,
+  //     '2023-20-07': false,
+  //   },
+  //   'Estudar Programação': {
+  //     '2023-18-07': false,
+  //     '2023-19-07': true,
+  //     '2023-20-07': false,
+  //   },
+  // }
+  const habits: Habits = await kv.hgetall('habits')
 
   const today = new Date()
   // const todayWeekDay = 0 // Domingo (ultima casa)
@@ -24,6 +30,17 @@ export default function Home() {
   const sortedWeekDays = weeKDays
     .slice(todayWeekDay + 1)
     .concat(weeKDays.slice(0, todayWeekDay + 1))
+
+  const last7Days = weeKDays
+    .map((_, index) => {
+      const date = new Date()
+      date.setDate(date.getDate() - index)
+
+      return date.toISOString().slice(0, 10) // apenas os 10 primeiros campos da data completa
+    })
+    .reverse()
+
+  // console.log(last7Days)
 
   return (
     <main className="container relative flex flex-col gap-8 px-4 pt-16">
@@ -50,23 +67,26 @@ export default function Home() {
                 />
               </button>
             </div>
-            <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
-              {/* {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'].map( */}
-              {/* {weeKDays.map((day) => ( */}
-              {sortedWeekDays.map((day) => (
-                <div
-                  key={day}
-                  className="flex flex-col last:font-bold"
-                >
-                  <span className="font-sans text-xs text-white text-center">
-                    {day}
-                  </span>
-                  <DayState day={false} />
-                  {/* <DayState day={true}/> */}
-                  {/* <DayState day={undefined}/> */}
-                </div>
-              ))}
-            </section>
+            <Link href={`habito/${habit}`}>
+              <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
+                {/* {['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'].map( */}
+                {/* {weeKDays.map((day) => ( */}
+                {sortedWeekDays.map((day, index) => (
+                  <div
+                    key={day}
+                    className="flex flex-col last:font-bold"
+                  >
+                    <span className="font-sans text-xs text-white text-center">
+                      {day}
+                    </span>
+                    {/* <DayState day={false} /> */}
+                    {/* <DayState day={true}/> */}
+                    {/* <DayState day={undefined}/> */}
+                    <DayState day={habitStreak[last7Days[index]]} />
+                  </div>
+                ))}
+              </section>
+            </Link>
           </div>
         ))}
       <Link

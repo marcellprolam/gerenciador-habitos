@@ -38,7 +38,7 @@
   }
 
 
-### VERCEL
+### VERCEL (01:00:00)
   https://vercel.com/new/marcell-souzas-projects
   New Project
 
@@ -53,6 +53,68 @@
   git branch -m main
   git commit -m "party 1.1"
   git push -u origin main
+
+### VERCEL - storage
+
+  banco: KV - Durable Redis
+
+  import { kv } from "@vercel/kv";
+  await kv.set("user_1_session", "session_token_value");
+  const session = await kv.get("user_1_session");
+
+# 1
+  vercel link
+    Y
+    enter 
+    Y
+
+# 2
+  vercel env pull .env.development.local
+    .env.development.local
+
+# 3
+  npm install @vercel/kv
+
+# 4 app/cart/[user]/page.tsx
+
+  import { kv } from "@vercel/kv";
+
+  export default async function Cart({ params }: { params: { user: string } }) {
+    const cart = await kv.get<{ id: string; quantity: number }[]>(params.user);
+    return (
+      <div>
+        {cart?.map((item) => (
+          <div key={item.id}>
+            {item.id} - {item.quantity}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+
+await kv.hset("habits", { [habit as string]: {} })
+
+{
+  habits: {
+    'Beber Água': {
+      '2023-18-07': true,
+      '2023-19-07': false,
+      '2023-20-07': false,
+    },
+    'Estudar Programação': {
+      '2023-18-07': false,
+      '2023-19-07': true,
+      '2023-20-07': false,
+    },
+  }
+}
+
+CLI para confirma a inserção no banco
+  hgetall habits
+  Tomar Água, {}
+
+
 
 
 
