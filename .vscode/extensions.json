@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "PKief.material-icon-theme",
+    "rocketseat.theme-omni",
+    "ritwickdey.LiveServer"
+  ]
+}
+
+// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line array-callback-return
+// eslint-disable-next-line react/display-name
