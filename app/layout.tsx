@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Dosis, Inter } from 'next/font/google'
 import './globals.css'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const dosis = Dosis({
   subsets: ['latin'],
@@ -36,6 +37,9 @@ export default function RootLayout({
           height={200}
           alt="Logo habitos"
         />
+        <Link href="https://souzamarcell.github.io/Portfolio">
+          @MarcellSouza
+        </Link>
         {children}
       </body>
     </html>

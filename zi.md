@@ -51,5 +51,8 @@
   git add .
   git status
   git branch -m main
-  git commit -m "party 5-2"
+  git commit -m "party 1.1"
   git push -u origin main
+
+
+
