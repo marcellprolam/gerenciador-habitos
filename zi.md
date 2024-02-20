@@ -51,7 +51,7 @@
   git add .
   git status
   git branch -m main
-  git commit -m "party 1.2"
+  git commit -m "party 1.4"
   git push -u origin main
 
 ### VERCEL - storage
@@ -113,6 +113,18 @@ await kv.hset("habits", { [habit as string]: {} })
 CLI para confirma a inserção no banco
   hgetall habits
   Tomar Água, {}
+
+
+### Manaus, 19 February, 2024
+=============================
+
+02:11:33
+
+
+### Manaus, 20 February, 2024
+=============================
+
+02:12:00
 
 
 
